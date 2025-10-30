@@ -15,9 +15,9 @@ ypos = f['data/ypos'][:]
 plt.scatter(xpos, ypos)
 plt.show()
 
-def fitting_func(x,a,b,c,d,e,f,g):
-    return g * x ** 6 + f * x ** 5 + e * x ** 4 + a * x ** 3 + b * x ** 2 + c * x + d
-N_params = 7
+def fitting_func(x,a,b,c,d):
+    return a * x ** 3 + b * x ** 2 + c * x + d
+N_params = 4
 def cost_func(fit, data, guess_params):
     resid = fit(data[0], *guess_params) - data[1] #find resid
     square_resid = np.power(resid,2) #square em
@@ -42,7 +42,7 @@ print(r"Adjusted R2: ", adjusted_R2)
 
 fig,axs = plt.subplots(nrows = 2, figsize = (8,6), sharex = True)
 axs[0].scatter(xpos, ypos, label="Data")
-axs[0].set_title("Fitting 6th Order Polynomial")
+axs[0].set_title("Fitting 3rd Order Polynomial")
 axs[0].set_ylabel("Y")
 x_plot = np.linspace(min(xpos), max(xpos), 10000)
 axs[0].plot(x_plot, fitting_func(x_plot, *minima), color = 'red', label = "Best-Fit")
@@ -50,4 +50,5 @@ axs[1].scatter(xpos, fitting_func(xpos, *minima) - ypos)
 axs[1].set_ylabel("Residuals")
 axs[1].set_xlabel("X")
 axs[0].legend(loc = "lower right")
-plt.savefig("6thorderpoly.png", dpi = 300)
+#plt.savefig("3rdorderpoly.png", dpi = 300)
+plt.show()
